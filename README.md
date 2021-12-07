@@ -68,3 +68,11 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `yarn build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## Prueba Cuponatic
+
+1. Para iniciar debe instalar todas las dependencias con:
+   --npm install y luego --npm update
+
+2. para iniciar proyecto debe ejecutar:
+   --npm start
