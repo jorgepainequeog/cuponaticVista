@@ -1,32 +1,24 @@
-import React, {useEffect, useState, createContext} from 'react'
-import ListadoProductos from './components/ListadoProductos';
+import React, {useEffect, useState} from 'react'
 import Carrito from './components/Carrito';
 import Home from './components/Home'
 import {BrowserRouter as Router,Route,Link, Routes} from "react-router-dom";
-
 import Box from '@mui/material/Box';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import CottageIcon from '@mui/icons-material/Cottage';
 import Inventory2Icon from '@mui/icons-material/Inventory2';
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
-
-export const AppContext = createContext(null);
+import Productos from './components/Productos'
+import {Provider} from 'react-redux'
+import generateStore from './redux/store'
 
 function App() {
   const [value, setValue] = React.useState(0);
   const [stores, setStores] = React.useState(0);
-  const [listaProductos, setListaProductos] = useState([])
+  const store = generateStore()
 
-  useEffect(()=>{
-    obtenerData()
-  },[])
+  console.log(store.getState())
 
-  const obtenerData = async ()=>{
-    const data = await fetch('http://127.0.0.1:8000/api/list/')
-    const productos = await data.json()
-    setListaProductos(productos)
-  }
   const grabaData = () =>{
     localStorage.setItem('objeto 1', "objeto de jggigygugiuy")
     alert("Producto Agregado")
@@ -40,24 +32,14 @@ function App() {
   }
 
   return (
-    <AppContext.Provider value={{listaProductos, setListaProductos, grabaData,verData,eliminarData}}>
+    <Provider store={store}>
     <div className="container">
       {/* <div><button onClick={grabaData}>grabar la data</button></div>
       <div><button onClick={verData}>ver la data</button></div>
       <div><button onClick={eliminarData}>eliminar la data</button></div> */}
-      <div>
-        <ul>
-         {/*  {listaProductos.map(item=>(
-            <li key={item.id}>
-              {item.titulo} - {item.precio}
-            </li>
-          ))
-          } */}
-          
-        </ul>
-      </div>
       <Router>
-            <Box sx={{ width: 500 }}>
+        <div className="row">
+        <Box sx={{ width: 500 }}>
               <BottomNavigation
               showLabels
               value={value}
@@ -82,14 +64,17 @@ function App() {
               />
               </BottomNavigation>
             </Box>
+        </div>
+            
+            
       <Routes>
-        <Route exact path="/productos" element={<ListadoProductos/>}/>
+        <Route exact path="/productos" element={<Productos/>}/>
         <Route exact path="/carro" element={<Carrito/>}/>
         <Route exact path="/" element={<Home/>}/>
       </Routes>
     </Router>
     </div>
-    </AppContext.Provider>
+    </Provider>
   );
 }
 
