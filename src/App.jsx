@@ -13,8 +13,8 @@ import {Provider} from 'react-redux'
 import generateStore from './redux/store'
 
 function App() {
-  const [value, setValue] = React.useState(0);
-  const [stores, setStores] = React.useState(0);
+  const [value, setValue] = useState(0);
+  const [stores, setStores] = useState(0);
   const store = generateStore()
 
   console.log(store.getState())
@@ -65,6 +65,7 @@ function App() {
               </BottomNavigation>
             </Box>
         </div>
+        <hr />
             
             
       <Routes>
